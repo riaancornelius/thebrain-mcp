@@ -654,4 +654,64 @@ export const toolSchemas = {
       required: [],
     },
   },
+
+  // App Control (local desktop API only)
+  get_app_state: {
+    name: 'get_app_state',
+    description: 'Get the TheBrain desktop app state: current brain, active thought and open tabs',
+    inputSchema: {
+      type: 'object',
+      properties: {},
+      required: [],
+    },
+  },
+
+  open_brain: {
+    name: 'open_brain',
+    description: 'Open a brain in the TheBrain desktop app',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        brainId: {
+          type: 'string',
+          description: 'The ID of the brain (uses active brain if not specified)',
+        },
+      },
+      required: [],
+    },
+  },
+
+  close_brain: {
+    name: 'close_brain',
+    description: "Close a brain's tab in the TheBrain desktop app",
+    inputSchema: {
+      type: 'object',
+      properties: {
+        brainId: {
+          type: 'string',
+          description: 'The ID of the brain (uses active brain if not specified)',
+        },
+      },
+      required: [],
+    },
+  },
+
+  activate_thought: {
+    name: 'activate_thought',
+    description: 'Navigate the TheBrain desktop app to a thought, making it the active thought',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        brainId: {
+          type: 'string',
+          description: 'The ID of the brain (uses active brain if not specified)',
+        },
+        thoughtId: {
+          type: 'string',
+          description: 'The ID of the thought to navigate to',
+        },
+      },
+      required: ['thoughtId'],
+    },
+  },
 };

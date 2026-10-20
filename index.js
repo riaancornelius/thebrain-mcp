@@ -23,7 +23,7 @@ if (!API_KEY) {
 }
 
 // Initialize API client
-const api = new TheBrainAPI(API_KEY);
+const api = new TheBrainAPI(API_KEY, process.env.THEBRAIN_API_URL || undefined);
 
 // Initialize MCP server
 const server = new Server(
@@ -199,6 +199,23 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       
       case 'get_modifications':
         result = await handlers.getModifications(api, args);
+        break;
+
+      // App Control
+      case 'get_app_state':
+        result = await handlers.getAppState(api);
+        break;
+
+      case 'open_brain':
+        result = await handlers.openBrain(api, args);
+        break;
+
+      case 'close_brain':
+        result = await handlers.closeBrain(api, args);
+        break;
+
+      case 'activate_thought':
+        result = await handlers.activateThought(api, args);
         break;
 
       default:

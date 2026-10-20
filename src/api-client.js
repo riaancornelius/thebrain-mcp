@@ -248,6 +248,23 @@ export class TheBrainAPI {
     });
   }
 
+  // App Control (local desktop API only)
+  async getAppState() {
+    return this.request('GET', '/app/state');
+  }
+
+  async openBrain(brainId) {
+    return this.request('POST', `/app/brain/${brainId}/open`);
+  }
+
+  async closeBrain(brainId) {
+    return this.request('POST', `/app/brain/${brainId}/close`);
+  }
+
+  async activateThought(brainId, thoughtId) {
+    return this.request('POST', `/app/brain/${brainId}/thought/${thoughtId}/activate`);
+  }
+
   // Helper method for MIME types
   getMimeType(filePath) {
     const ext = path.extname(filePath).toLowerCase();
