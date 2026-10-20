@@ -29,7 +29,7 @@ export class TheBrainAPI {
 
     // Add Content-Type for JSON payloads
     if (options.body && !(options.body instanceof FormData)) {
-      fetchOptions.headers['Content-Type'] = 'application/json';
+      fetchOptions.headers['Content-Type'] = options.headers?.['Content-Type'] || 'application/json';
       fetchOptions.body = JSON.stringify(options.body);
     }
 
@@ -117,9 +117,9 @@ export class TheBrainAPI {
     }
 
     return this.request('PATCH', `/thoughts/${brainId}/${thoughtId}`, {
-      body: {
-        patchDocument: patches,
-      },
+      // Local API expects a bare JSON Patch array, not { patchDocument }
+      headers: { 'Content-Type': 'application/json-patch+json' },
+      body: patches,
     });
   }
 
@@ -175,9 +175,9 @@ export class TheBrainAPI {
     }
 
     return this.request('PATCH', `/links/${brainId}/${linkId}`, {
-      body: {
-        patchDocument: patches,
-      },
+      // Local API expects a bare JSON Patch array, not { patchDocument }
+      headers: { 'Content-Type': 'application/json-patch+json' },
+      body: patches,
     });
   }
 
